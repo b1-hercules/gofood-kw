@@ -80,3 +80,19 @@ $app->put("/orders/{id}", function (Request $request, Response $response, $args)
     
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
 });
+
+//Rute DELETE /orders/1
+$app->delete("/orders/{id}", function (Request $request, Response $response, $args){
+    $id = $args["id"];
+    $sql = "DELETE FROM orders WHERE order_id=:id";
+    $stmt = $this->db->prepare($sql);
+    
+    $data = [
+        ":id" => $id
+    ];
+
+    if($stmt->execute($data))
+       return $response->withJson(["status" => "success", "data" => "1"], 200);
+    
+    return $response->withJson(["status" => "failed", "data" => "0"], 200);
+});
