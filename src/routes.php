@@ -17,6 +17,7 @@ $app->get('/[{name}]', function (Request $request, Response $response, array $ar
 $app->get("/orders/", function (Request $request, Response $response){
     $sql = "SELECT * FROM orders";
     $stmt = $this->db->prepare($sql);
+    $stmt->execute();
     $result = $stmt->fetchAll();
     return $response->withJson(["status" => "success", "data" => $result], 200);
 });
@@ -96,3 +97,16 @@ $app->delete("/orders/{id}", function (Request $request, Response $response, $ar
     
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
 });
+
+
+// // membuat middleware
+// $cekAPIKey = function($request, $response, $next){
+//     // ini middleware untuk cek apikey
+// };
+
+// // menambahkan middleware ke route
+// $app->get('/orders', function ($request, $response) {
+//       // ...
+// })->add(cekAPIKey());
+
+

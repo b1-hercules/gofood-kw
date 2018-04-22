@@ -32,3 +32,13 @@ $app->add(function ($request, $response, $next) {
     return $response->withJson(["status" => "Unauthorized"], 401);
 
 });
+
+
+// $app->group('/api', function () use ($app) {
+//     $app->get('/orders', function ($request, $response) {
+//       // ...
+//     });
+//    $app->get('/orders/{id}', function ($request, $response) {
+//        // ...
+//     });
+// })->add(cekAPIKey());
