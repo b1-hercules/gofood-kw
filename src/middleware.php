@@ -12,7 +12,7 @@ $app->add(function ($request, $response, $next) {
         return $response->withJson(["status" => "API Key required"], 401);
     }
     
-    $sql = "SELECT * FROM api_users WHERE api_key=:api_key";
+    $sql = "SELECT * FROM pelanggan WHERE api_key=:api_key";
     $stmt = $this->db->prepare($sql);
     $stmt->execute([":api_key" => $key]);
     
@@ -21,7 +21,7 @@ $app->add(function ($request, $response, $next) {
         if($key == $result["api_key"]){
         
             // update hit
-            $sql = "UPDATE api_users SET hit=hit+1 WHERE api_key=:api_key";
+            $sql = "UPDATE pelanggan SET hit=hit+1 WHERE api_key=:api_key";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([":api_key" => $key]);
             

@@ -3,6 +3,7 @@ return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
+        'upload_directory' => __DIR__ . '/../public/uploads', // upload directory
 
         // Renderer settings
         'renderer' => [
@@ -21,7 +22,7 @@ return [
         'host' => 'localhost',
         'user' => 'root',
         'pass' => ' ',
-        'dbname' => 'gojek_kw',
+        'dbname' => 'gofood_kw',
         'driver' => 'mysql'
         ],
     ],
