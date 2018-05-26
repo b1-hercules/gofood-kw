@@ -183,56 +183,41 @@ $app->post('/makanan/gambar/{id}', function(Request $request, Response $response
     }
 });
 
-
-//error
-$app->post('/menu/tambah', function(Request $request, Response $response, $args) {
+// $app->post('/tamabah/makanan', function(Request $request, Response $response, $args) {
     
-    $new_menu = $request->getParsedBody();
-    $uploadedFiles = $request->getUploadedFiles();
-
-    $sql = "INSERT INTO makanan (nama, harga, kategori) VALUE (:nama, :harga, :kategori)";
-    $stmt = $this->db->prepare($sql);
-
-    $data = [
-    ":nama" => $new_menu["nama"],
-    ":harga" => $new_menu["harga"],
-    ":kategori" => $new_menu["kategori"],
-    ];
-
-    if($stmt->execute($data))
-    return $response->withJson(["status" => "success", "data" => $data], 200);
-
-    return $response->withJson(["status" => "failed", "data" => "0"], 200);
-    // handle single input with single file upload
-    $uploadedFile = $uploadedFiles['gambar'];
-    if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+//     $uploadedFiles = $request->getUploadedFiles();
+    
+//      // handle multiple inputs with the same key
+//      foreach ($uploadedFiles['makanan'] as $uploadedFile) {
+//         if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+//             $filename = moveUploadedFile($directory, $uploadedFile);
+//             $response->write('uploaded ' . $filename . '<br/>'); {
         
-        $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+//         $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
         
-        // ubah nama file dengan id makanan
-        //$filename = sprintf('%s.%0.8s', $args["id"], $extension);
+//         // ubah nama file dengan id makanan
+//         //$filename = sprintf('%s.%0.8s', $args["id"], $extension);
         
-        $directory = $this->get('settings')['upload_directory'];
-        $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
+//         $directory = $this->get('settings')['upload_directory'];
+//         $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
 
-        // simpan nama file ke database
-        $sql = "UPDATE makanan SET gambar=:gambar";
-        $stmt = $this->db->prepare($sql);
-        $params = [
-            ":gambar" => $filename
-        ];
+//         // simpan nama file ke database
+//         $sql = "UPDATE makanan SET gambar=:gambar WHERE id=:id";
+//         $stmt = $this->db->prepare($sql);
+//         $params = [
+//             ":id" => $args["id"],
+//             ":gambar" => $filename
+//         ];
         
-        if($stmt->execute($params)){
-            // ambil base url dan gabungkan dengan file name untuk membentuk URL file
-            $url = $request->getUri()->getBaseUrl()."/uploads/".$filename;
-            return $response->withJson(["status" => "success", "data" => $url], 200);
-        }
+//         if($stmt->execute($params)){
+//             // ambil base url dan gabungkan dengan file name untuk membentuk URL file
+//             $url = $request->getUri()->getBaseUrl()."/uploads/".$filename;
+//             return $response->withJson(["status" => "success", "data" => $url], 200);
+//         }
         
-        return $response->withJson(["status" => "failed", "data" => "0"], 200);
-    }
-
-});
-
+//         return $response->withJson(["status" => "failed", "data" => "0"], 200);
+//     }
+// });
 
 //update status pesan
 $app->put("/status/pesan/{id}", function (Request $request, Response $response, $args){
